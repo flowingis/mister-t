@@ -1,0 +1,22 @@
+{
+  "name": "mister-t",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideatosrl/mister-t.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ideatosrl/mister-t/issues"
+  },
+  "homepage": "https://github.com/ideatosrl/mister-t#readme",
+  "dependencies": {
+    "botkit": "^0.5.1"
+  }
+}

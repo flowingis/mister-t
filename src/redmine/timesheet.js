@@ -11,7 +11,7 @@ module.exports = function(endPoint, apiKey){
       if(error) {
         console.log(error)
       }
-      console.log(url)
+
       const hours = _.reduce(JSON.parse(body)[ 'time_entries' ], function (sum, entry) {
         return sum + entry[ 'hours' ]
       }, 0);

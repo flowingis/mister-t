@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/ideatosrl/mister-t#readme",
   "dependencies": {
-    "botkit": "^0.5.1"
+    "botkit": "^0.5.1",
+    "lodash-node": "^3.10.2",
+    "moment": "^2.17.1",
+    "node-cron": "^1.1.3",
+    "request": "^2.81.0"
   }
 }

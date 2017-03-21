@@ -25,7 +25,10 @@
     "request": "^2.81.0"
   },
   "devDependencies": {
-    "tap": "10.3.0",
-    "should": "11.2.1"
+    "gulp": "3.9.1",
+    "gulp-cli": "1.2.2",
+    "gulp-util": "3.0.8",
+    "should": "11.2.1",
+    "tap": "10.3.0"
   }
 }

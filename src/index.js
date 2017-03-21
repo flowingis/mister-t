@@ -1,5 +1,6 @@
 'use strict';
 
+require('app-module-path').addPath(__dirname);
 const Botkit = require('botkit');
 const config = require('./config');
 const redmine = require('./redmine')(config.redmineUrl, config.redmineApiKey);

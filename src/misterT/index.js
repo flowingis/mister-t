@@ -3,7 +3,7 @@
 const moment = require('moment');
 const _ = require('lodash-node');
 const cron = require('node-cron');
-const lastBusinessDay = require('business-days').last;
+const lastBusinessDay = require('../businessDays').last;
 
 module.exports = (controller, bot) => {
   const warnAboutTimeSheet = (timeSheet, users) => {

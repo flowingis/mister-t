@@ -1,0 +1,9 @@
+{
+  "apps": {
+    "cwd": "/var/www/mister-t",
+    "name" : "mister-t",
+    "script": "src/index.js",
+    "watch": true,
+    "ignore_watch" : ["node_modules"]
+  }
+}

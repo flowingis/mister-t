@@ -1,7 +1,7 @@
 'use strict';
 
 const moment = require('moment');
-const _ = require('lodash-node');
+const _ = require('lodash');
 const cron = require('node-cron');
 const lastBusinessDay = require('../businessDays').last;
 

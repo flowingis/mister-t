@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const _ = require('lodash-node');
+const _ = require('lodash');
 
 module.exports = function(endPoint, apiKey){
   function retrieveLog (cb, user, from, to) {

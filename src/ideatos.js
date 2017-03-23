@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+const ideatos = {
   '6': '@kea',
   '158': '@nicole-e',
   '160': '@pietro',
@@ -20,4 +20,16 @@ module.exports = {
   '4': '@ciccio',
   '124': '@vitto',
   '176': '@edelprino'
-}
+};
+
+module.exports.bySlackName = (slackName) => {
+  for (const redmineId in ideatos) {
+    if (ideatos.hasOwnProperty(redmineId)) {
+        if(ideatos[redmineId] === slackName) {
+          return {redmineId: slackName};
+        }
+    }
+  }
+};
+
+module.exports.all = ideatos;

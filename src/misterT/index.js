@@ -14,7 +14,7 @@ module.exports = (controller, bot) => {
     retrieveLog(function (err, hours) {
 
       bot.say({
-        text: `Ieri hai segnato ${hours} ore\nTeachin' fools some basic rules! `,
+        text: `Yesterday you have logged ${hours} hours\nTeachin' fools some basic rules! `,
         channel: slackId
       });
     }, redmineId, day, day);

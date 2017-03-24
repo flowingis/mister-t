@@ -3,7 +3,7 @@
 require('tap').mochaGlobals();
 const should = require('should');
 const moment = require('moment');
-const last = require('index').last;
+const last = require('./businessDays').last;
 
 describe('last', () => {
   it('should return last friday on monday', () => {

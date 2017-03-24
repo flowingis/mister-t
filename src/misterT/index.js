@@ -15,7 +15,7 @@ module.exports = (controller, bot) => {
 
       bot.say({
         text: `Ieri hai segnato ${hours} ore\nTeachin' fools some basic rules! `,
-        channel: redmineId
+        channel: slackId
       });
     }, redmineId, day, day);
   };

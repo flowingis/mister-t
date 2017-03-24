@@ -26,7 +26,7 @@ module.exports.bySlackName = (slackName) => {
   for (const redmineId in ideatos) {
     if (ideatos.hasOwnProperty(redmineId)) {
         if(ideatos[redmineId] === slackName) {
-          return {redmineId: slackName};
+          return {redmineId: redmineId, slackId: slackName};
         }
     }
   }

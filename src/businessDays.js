@@ -11,7 +11,7 @@ module.exports.last = (now) => {
     case 0:
     case 1:
     case 6:
-      return moment().subtract(6,'days').day(5);
+      return now.clone().subtract(6,'days').day(5);
     // If it any other weekend, just return the previous day
     default:
       return now.clone().add(-1, 'days')

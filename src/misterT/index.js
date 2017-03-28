@@ -8,18 +8,6 @@ const redmineIdFromSlack = require('../ideatos').bySlackName;
 
 module.exports = (controller, bot) => {
 
-  const doTellYesterdayHours = (slackId, redmineId, retrieveLog) => {
-    const day = lastBusinessDay(moment()).format('YYYY-MM-DD');
-
-    retrieveLog(function (err, hours) {
-
-      bot.say({
-        text: `Yesterday you have logged ${hours} hours\nTeachin' fools some basic rules! `,
-        channel: slackId
-      });
-    }, redmineId, day, day);
-  };
-
   const warnAboutTimeSheet = (timeSheet, users) => {
     _.forEach(users, (slackId, redmineId) => {
       const day = lastBusinessDay(moment()).format('YYYY-MM-DD');

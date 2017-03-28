@@ -22,7 +22,13 @@ module.exports = (controller, bot) => {
 
   const warnAboutTimeSheet = (timeSheet, users) => {
     _.forEach(users, (slackId, redmineId) => {
-      doTellYesterdayHours(slackId, redmineId, timeSheet.retrieveLog)
+      const day = lastBusinessDay(moment()).format('YYYY-MM-DD');
+      timeSheet.retrieveLog((err, hours) => {
+        bot.say({
+          text: `Yesterday you have logged ${hours} hours\nTeachin' fools some basic rules! `,
+          channel: slackId
+        });
+      }, redmineId, day, day);
     })
   };
 
@@ -39,11 +45,14 @@ module.exports = (controller, bot) => {
       });
   };
 
-  const tellUserYesterdayHours = (timesheet) => {
+  const tellUserYesterdayHours = (timeSheet) => {
     controller.hears('what about yesterday', 'direct_message,direct_mention,mention', (bot, message) => {
-      bot.api.users.info({user: message.user}, (error, response) => {
-        const {slackId, redmineId} = redmineIdFromSlack(`@${response.user.name}`);
-        doTellYesterdayHours(slackId, redmineId, timesheet.retrieveLog);
+      bot.api.users.info({ user: message.user }, (error, response) => {
+        const { redmineId } = redmineIdFromSlack(`@${response.user.name}`);
+        const day = lastBusinessDay(moment()).format('YYYY-MM-DD');
+        timeSheet.retrieveLog((err, hours) => {
+          bot.reply(message, `Yesterday you have logged ${hours} hours\nTeachin' fools some basic rules!`)
+        }, redmineId, day, day);
       })
     });
   };

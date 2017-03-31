@@ -18,5 +18,5 @@ controller.spawn({
   const misterT = MisterT(controller, bot);
   misterT.appear();
   misterT.tellUserYesterdayHours(redmine.timeSheet);
-  cron.schedule('50 9 * * 1-5', () => misterT.warnAboutTimeSheet(redmine.timeSheet, users), false);
+  cron.schedule('50 9 * * 1-5', () => misterT.warnAboutTimeSheet(redmine.timeSheet, users));
 });

@@ -15,8 +15,8 @@ const controller = Botkit.slackbot({
 controller.spawn({
   token: config.slackToken,
 }).startRTM(function (err, bot, payload) {
-  const misterT = MisterT(controller, bot);
-  misterT.appear();
-  misterT.tellUserYesterdayHours(redmine.timeSheet);
-  cron.schedule('50 9 * * 1-5', () => misterT.warnAboutTimeSheet(redmine.timeSheet, users));
+  const misterT = MisterT(redmine.timeSheet);
+  misterT.appear(controller);
+  misterT.tellUserYesterdayHours(controller);
+  cron.schedule('50 9 * * 1-5', () => misterT.warnAboutTimeSheet(bot, users));
 });

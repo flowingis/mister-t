@@ -6,10 +6,10 @@ const cron = require('node-cron');
 const lastBusinessDay = require('../businessDays').last;
 const redmineIdFromSlack = require('../ideatos').bySlackName;
 
-module.exports = (controller, bot) => {
+module.exports = (timeSheet) => {
 
   return {
-    warnAboutTimeSheet(timeSheet, users) {
+    warnAboutTimeSheet(bot, users) {
       _.forEach(users, (slackId, redmineId) => {
         const day = lastBusinessDay(moment()).format('YYYY-MM-DD');
         timeSheet.retrieveLog((err, hours) => {
@@ -23,7 +23,7 @@ module.exports = (controller, bot) => {
       })
     },
 
-    tellUserYesterdayHours(timeSheet) {
+    tellUserYesterdayHours(controller) {
       controller.hears('what about yesterday', 'direct_message,direct_mention,mention', (bot, message) => {
         bot.api.users.info({ user: message.user }, (error, response) => {
           const { redmineId } = redmineIdFromSlack(`@${response.user.name}`);
@@ -35,7 +35,7 @@ module.exports = (controller, bot) => {
       });
     },
 
-    appear() {
+    appear(controller) {
       controller.hears([ 'uptime', 'identify yourself', 'who are you', 'what is your name' ],
         'direct_message,direct_mention,mention', function (bot, message) {
 

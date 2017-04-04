@@ -12,10 +12,12 @@ module.exports = (controller, bot) => {
     _.forEach(users, (slackId, redmineId) => {
       const day = lastBusinessDay(moment()).format('YYYY-MM-DD');
       timeSheet.retrieveLog((err, hours) => {
-        bot.say({
-          text: `Yesterday you have logged ${hours} hours\nTeachin' fools some basic rules! `,
-          channel: slackId
-        });
+        if(hours < 8) {
+          bot.say({
+            text: `Yesterday you have logged ${hours} hours\nTeachin' fools some basic rules! `,
+            channel: slackId
+          });
+        }
       }, redmineId, day, day);
     })
   };

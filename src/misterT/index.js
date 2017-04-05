@@ -4,16 +4,20 @@ const moment = require('moment');
 const _ = require('lodash');
 const cron = require('node-cron');
 const lastBusinessDay = require('../businessDays').last;
-const redmineIdFromSlack = require('../ideatos').bySlackName;
 
-module.exports = (timeSheet) => {
+module.exports = (controller, params) => {
+
+  const redmine = require('../redmine')(params.redmineUrl, params.redmineApiKey);
+  const wit = require('./wit')(params.witServerToken)
+  const receive = require('./receiveMiddleware')(wit)
+  controller.middleware.receive.use(receive);
 
   return {
     warnAboutTimeSheet(bot, users) {
       _.forEach(users, (slackId, redmineId) => {
         const day = lastBusinessDay(moment()).format('YYYY-MM-DD');
-        timeSheet.retrieveLog((err, hours) => {
-		  if(hours < 8) {
+        redmine.timeSheet.retrieveLog((err, hours) => {
+          if(hours < 8) {
             bot.say({
               text: `Yesterday you have logged ${hours} hours\nTeachin' fools some basic rules! `,
               channel: slackId
@@ -23,24 +27,10 @@ module.exports = (timeSheet) => {
       })
     },
 
-    tellUserYesterdayHours(controller) {
-      controller.hears('what about yesterday', 'direct_message,direct_mention,mention', (bot, message) => {
-        bot.api.users.info({ user: message.user }, (error, response) => {
-          const { redmineId } = redmineIdFromSlack(`@${response.user.name}`);
-          const day = lastBusinessDay(moment()).format('YYYY-MM-DD');
-          timeSheet.retrieveLog((err, hours) => {
-            bot.reply(message, `Yesterday you have logged ${hours} hours\nTeachin' fools some basic rules!`)
-          }, redmineId, day, day);
-        })
-      });
-    },
-
     appear(controller) {
       controller.hears([ 'uptime', 'identify yourself', 'who are you', 'what is your name' ],
         'direct_message,direct_mention,mention', function (bot, message) {
-
           const uptime = formatUptime(process.uptime());
-
           bot.reply(message,
             ':robot_face: I am <@' + bot.identity.name +
             '>. I have kicked asses for ' + uptime + ' now');

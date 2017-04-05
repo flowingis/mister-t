@@ -9,7 +9,6 @@ module.exports = function(endPoint, apiKey){
 
     request(url, function (error, response, body) {
       if(error) {
-        console.log(error)
       }
 
       const hours = _.reduce(JSON.parse(body)[ 'time_entries' ], function (sum, entry) {

@@ -1,12 +1,6 @@
 'use strict';
 
-const config = require('./config')
-const Botkit = require('botkit');
+const slack = require('./slack')
+const controller = slack.controller(true)
 
-const controller = Botkit.slackbot({debug: true});
-
-require('./skills/hearAskForTimesheet')(controller)
-
-controller
-  .spawn({token: config.slackToken})
-  .startRTM()
+slack.bot().startRTM()

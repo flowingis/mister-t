@@ -2,7 +2,7 @@
 
 const ideatos = {
   '6': '@kea',
-  '158': '@nicole-e',
+  '158': '@nicol-e',
   '160': '@pietro',
   '151': '@dennais',
   '173': '@marco',

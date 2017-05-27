@@ -28,8 +28,8 @@ restService.post('/hook', function(req, res) {
   })
 })
 
-restService.listen((process.env.PORT || 5000), function(){
-  console.log(`server listening on 127.0.0.1:${process.env.PORT || 5000}`)
+restService.listen(config.webhookPort, function(){
+  console.log(`server listening on 127.0.0.1:${config.webhookPort}`)
 })
 
 function retrieveUser(req, cb){

@@ -3,6 +3,7 @@
 require('dotenv').config();
 
 module.exports = {
+  debug: process.env.DEBUG,
   redmineApiKey: process.env.REDMINE_API_KEY,
   redmineUrl: process.env.REDMINE_URL,
   slackToken: process.env.SLACK_BOT_TOKEN,

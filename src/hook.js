@@ -3,11 +3,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const moment = require('moment')
+const _ = require('lodash')
 const config = require('./config')
 const redmine = require('./redmine')(config.redmineUrl, config.redmineApiKey)
 const slack = require('./slack')(true)
 const ideatos = require('./ideatos')
-
 const restService = express()
 restService.use(bodyParser.json())
 
@@ -17,10 +17,10 @@ restService.post('/hook', function(req, res) {
       res.status(500).json({error: 'Unable to retrieve user'})
     }
     const day = req.body.result.parameters.date
-    retrieveLogFor(user, day, (error, speech) => {
+    retrieveLogFor(user, day, (error, workEntries) => {
       return res.json({
-        speech: speech,
-        displayText: speech,
+        speech: `${humanReadableDate(day)} hai lavorato:\n${workEntries}`,
+        displayText: `${humanReadableDate(day)} hai lavorato:\n${workEntries}`,
         source: 'mister-t-webhook'
       })
     })
@@ -56,7 +56,7 @@ function retrieveUser(slackRequest, cb){
   })
 }
 
-const hummanReadableDate = function (day) {
+const humanReadableDate = function (day) {
   return moment(day).locale('it').calendar(null, {
     lastDay: '[Ieri]',
     sameDay: '[Oggi]',
@@ -67,13 +67,17 @@ const hummanReadableDate = function (day) {
   })
 }
 
-function retrieveLogFor(user, day, cb) {
+function retrieveLogFor(user, day, done) {
   redmine.timeSheet.retrieveLog(
     ideatos.bySlackName(user).redmineId,
     day,
     day,
-    (err, hours) => {
-      cb(false, `${hummanReadableDate(day)} hai segnato ${hours} ore`)
-    }
+    (err, logs) => done(false, stringifyLogs(logs))
   )
+}
+
+function stringifyLogs(logs) {
+  return _.map(logs, log => {
+    return `su ${log.project} (${log.issue.name}) per ${log.hours} ore`
+  }).join('\n')
 }

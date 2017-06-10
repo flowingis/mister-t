@@ -5,6 +5,7 @@ const slack = require('../../slack')(true)
 const config = require('../../config')
 const redmine = require('../../redmine')(config.redmineUrl, config.redmineApiKey)
 const ideatos = require('../../ideatos')
+const dateRange = require('../entities/date').range
 
 module.exports = function(req, respond) {
   retrieveUser(req.originalRequest, (error, user) => {
@@ -12,26 +13,39 @@ module.exports = function(req, respond) {
     if (error) {
       respond('Unable to retrieve user')
     }
-    const day = req.result.parameters.date
-
-    retrieveLogFor(user, day, (error, workEntries) => {
-      if(error) {
-        respond(error)
-      }
-
-      let speech = ''
-      if(!workEntries) {
-        speech = 'Mmmm sembra che tu non abia lavorato, hai dimenticato di aggiornare il timesheet?'
-      } else {
-        speech = `${humanReadableDate(day)} hai lavorato:\n${workEntries}`
-      }
-
+    const date = req.result.parameters.date
+    try {
+      const range = dateRange(date)
+    }catch (e) {
       respond(null, {
-        speech: speech,
-        displayText: speech,
+        speech: 'Mi spiace ma non ho capito di che giorno stai parlando',
+        displayText: 'Mi spiace ma non ho capito di che giorno stai parlando',
         source: 'mister-t-webhook'
       })
-    })
+    }
+
+    redmine.timeSheet.retrieveLog(
+      ideatos.bySlackName(user).redmineId,
+      range.from,
+      range.to,
+      (error, workEntries) => {
+        if (error) {
+          respond(error)
+        }
+
+        let speech = ''
+        if (!workEntries) {
+          speech = 'Mmmm sembra che tu non abia lavorato, hai dimenticato di aggiornare il timesheet?'
+        } else {
+          speech = `Vedo che hai lavorato:\n${stringifyLogs(workEntries)}`
+        }
+
+        respond(null, {
+          speech: speech,
+          displayText: speech,
+          source: 'mister-t-webhook'
+        })
+      })
   })
 }
 
@@ -60,20 +74,6 @@ function retrieveUser (slackRequest, cb) {
   })
 }
 
-function retrieveLogFor (user, day, done) {
-  redmine.timeSheet.retrieveLog(
-    ideatos.bySlackName(user).redmineId,
-    day,
-    day,
-    (err, logs) => {
-      if(err) {
-        logs(err)
-      }
-      done(false, stringifyLogs(logs))
-    }
-  )
-}
-
 const humanReadableDate = function (day) {
   return moment(day).locale('it').calendar(null, {
     lastDay: '[Ieri]',
@@ -87,6 +87,6 @@ const humanReadableDate = function (day) {
 
 function stringifyLogs (logs) {
   return _.map(logs, log => {
-    return `su ${log.project} (${log.issue.name}) per ${log.hours} ore`
+    return `su ${log.project} (${log.issue.name}) per ${log.hours} ore ${humanReadableDate(log.date)}`
   }).join('\n')
 }

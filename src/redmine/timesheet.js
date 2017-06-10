@@ -26,6 +26,7 @@ module.exports = function(endPoint, apiKey){
 
         retrieveIssue(_.get(entry, 'issue.id'), (error, issue) => {
           logs.push({
+            date: entry.spent_on,
             project: _.get(entry, 'project.name'),
             hours: _.get(entry, 'hours'),
             issue: {

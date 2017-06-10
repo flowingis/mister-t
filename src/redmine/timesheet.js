@@ -16,8 +16,12 @@ module.exports = function(endPoint, apiKey){
         done(error)
       }
 
-      let logs = []
       const timeEntries = JSON.parse(body)[ 'time_entries' ]
+      if(timeEntries.length === 0) {
+        done(null, [])
+      }
+
+      let logs = []
       timeEntries.forEach(entry => {
 
         retrieveIssue(_.get(entry, 'issue.id'), (error, issue) => {

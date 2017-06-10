@@ -2,7 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const getAction = require('./misterT/actions')
+const skills = require('./misterT/skills')
 const config = require('./config')
 const restService = express()
 
@@ -12,19 +12,15 @@ restService.post('/hook', function (req, res) {
   if(!req.body.result.action) {
     res.status(500).send('Missing action');
   }
-  const action = getAction(req.body.result.action)
+  const replyTo = skills(req.body.result.action)
 
-  if(!action) {
+  if(!replyTo) {
     res.status(404).send("Don't know what to do");
   }
 
-  action(req.body, (err, apiAiResponse) => {
-    if(err) {
-      res.status(500).send(err);
-    }
-
-    return res.json(apiAiResponse)
-  })
+  replyTo(req.body)
+    .then(response => res.json(response))
+    .catch(err => res.status(500).send(err))
 })
 
 restService.listen(config.webhookPort, function () {

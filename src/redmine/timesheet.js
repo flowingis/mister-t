@@ -8,39 +8,41 @@ module.exports = function(endPoint, apiKey){
     retrieveLog: retrieveLog
   }
 
-  function retrieveLog (user, from, to, done) {
-    const url = `${endPoint}/time_entries.json?key=${apiKey}&user_id=${user}&from=${from}&to=${to}&limit=100`;
+  function retrieveLog (user, from, to) {
+    return new Promise((resolve, reject) => {
+      const url = `${endPoint}/time_entries.json?key=${apiKey}&user_id=${user}&from=${from}&to=${to}&limit=100`;
+      request(url, function (error, response, body) {
 
-    request(url, function (error, response, body) {
-      if(error) {
-        done(error)
-      }
+        if(error) {
+          reject(error)
+        }
 
-      const timeEntries = JSON.parse(body)[ 'time_entries' ]
-      if(timeEntries.length === 0) {
-        done(null, [])
-      }
+        const timeEntries = JSON.parse(body)[ 'time_entries' ]
+        if(timeEntries.length === 0) {
+          resolve([])
+        }
 
-      let logs = []
-      timeEntries.forEach(entry => {
+        let logs = []
+        timeEntries.forEach(entry => {
 
-        retrieveIssue(_.get(entry, 'issue.id'), (error, issue) => {
-          logs.push({
-            date: entry.spent_on,
-            project: _.get(entry, 'project.name'),
-            hours: _.get(entry, 'hours'),
-            issue: {
-              id: _.get(entry, 'issue.id'),
-              name: issue.subject
+          retrieveIssue(_.get(entry, 'issue.id'), (error, issue) => {
+            logs.push({
+              date: entry.spent_on,
+              project: _.get(entry, 'project.name'),
+              hours: _.get(entry, 'hours'),
+              issue: {
+                id: _.get(entry, 'issue.id'),
+                name: issue.subject
+              }
+            })
+
+            if(logs.length  === timeEntries.length) {
+              resolve(logs)
             }
           })
-
-          if(logs.length  === timeEntries.length) {
-            done(null, logs)
-          }
         })
-      })
-    });
+      });
+    })
   }
 
   function retrieveIssue(issueId, done) {

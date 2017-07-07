@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ideatosrl/mister-t#readme",
   "dependencies": {
+    "apiai": "^4.0.2",
     "body-parser": "^1.17.2",
     "botkit": "^0.5.1",
     "dotenv": "4.0.0",
@@ -27,7 +28,6 @@
     "node-uuid": "^1.4.8"
   },
   "devDependencies": {
-    "apiai": "^4.0.2",
     "gulp": "3.9.1",
     "gulp-cli": "1.2.2",
     "gulp-util": "3.0.8",

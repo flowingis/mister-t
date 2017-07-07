@@ -46,7 +46,6 @@ module.exports = function(config) {
   }
 
   middleware.hears = function(tests, message) {
-    console.log('APIAI message: ', message)
     for (let i = 0; i < tests.length; i++) {
       if (message.intent === tests[i] &&
         message.confidence >= config.minimum_confidence) {

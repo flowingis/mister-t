@@ -2,12 +2,18 @@
 
 require('tap').mochaGlobals();
 const should = require('should');
-const bySlackName = require('./ideatos').bySlackName;
+const ideatos = require('./ideatos');
 
 describe('bySlackName', () => {
   it('should retrieve an ideatos by his slack name', () => {
-    bySlackName('@ftassi').should.be.deepEqual({redmineId: '95', slackId: '@ftassi'})
+    ideatos.bySlackName('@ftassi').should.be.deepEqual({redmineId: '95', slackId: '@ftassi'})
   });
 });
+
+describe('allSlackIds', () => {
+  it('should return a list of ideatos on slack', () => {
+    (ideatos.allSlackIds).should.containEql('@ftassi')
+  })
+})
 
 

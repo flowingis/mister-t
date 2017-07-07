@@ -4,7 +4,7 @@ const apiai = require('apiai')
 const uuid = require('node-uuid');
 
 module.exports = function(config) {
-  if(!config.token) {
+  if(!config.apiAiToken) {
     throw new Error('No api.ai client access token provided')
   }
 
@@ -12,18 +12,24 @@ module.exports = function(config) {
     config.minimum_confidence = 0.5;
   }
   if(!config.skip_bot){
-    config.skip_bot = false;
+    config.skip_bot = true;
   }
 
-  if (!config.sessionId) {
-    config.sessionId = uuid.v1();
+  if (!config.sessions) {
+    config.sessions = {};
   }
 
-  const apiaiBot = apiai(config.token)
+  const apiaiBot = apiai(config.apiAiToken)
   const middleware = {};
 
   middleware.receive = function(bot, message, next) {
-    if(config.skip_bot === true && message.bot_id !== undefined) {
+
+    if (message.type !== "message") {
+      next()
+      return
+    }
+
+    if(config.skip_bot === true && message.user === bot.identity.id) {
       next()
       return
     }
@@ -33,8 +39,14 @@ module.exports = function(config) {
       return
     }
 
+    const channel = message.channel;
+    if (!(channel in config.sessions)) {
+      config.sessions[channel] = uuid.v1();
+    }
+
+    console.log('SESSION_ID', config.sessions[channel])
     const request = apiaiBot.textRequest(message.text, {
-      sessionId: config.sessionId
+      sessionId: config.sessions[channel]
     });
 
     request.on('response', function(response) {
@@ -52,4 +64,6 @@ module.exports = function(config) {
 
     request.end();
   }
+
+  return middleware
 }

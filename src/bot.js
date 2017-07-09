@@ -10,14 +10,17 @@ const misterT = require('./misterT')(require('./data'))
 controller.middleware.receive.use(middleware.receive)
 slack.spawnBot(controller).startRTM(function (err, bot, payload) {
 
-    cron.schedule('50 9 * * 1-5', () => {
-      misterT.warnAboutMissingTimesheet()
-        .then(warnings => {
-          warnings.forEach(({text, channel}) => {
-            bot.say({text, channel})
+    cron.schedule('50 9 * * 1-5', async () => {
+      try {
+        const warnings = await misterT.warnAboutMissingTimesheet()
+        if (warnings) {
+          warnings.forEach(({ text, channel }) => {
+            bot.say({ text, channel })
           })
-        })
-        .catch(e => console.error(e))
+        }
+      } catch (e) {
+        console.error(e)
+      }
     })
   }
 )

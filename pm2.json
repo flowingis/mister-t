@@ -8,15 +8,6 @@
       "ignore_watch": [
         "node_modules"
       ]
-    },
-    {
-      "cwd": "/var/www/mister-t",
-      "name": "mister-t-web-hook",
-      "script": "src/hook.js",
-      "watch": true,
-      "ignore_watch": [
-        "node_modules"
-      ]
-    },
+    }
   ]
 }

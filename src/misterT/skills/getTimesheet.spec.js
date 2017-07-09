@@ -24,8 +24,8 @@ describe('getTimesheet', () => {
 
     const aRequestForTimesheetSpecificDay = {result:{parameters:{date: {date: '2017-01-01'}}}}
     skill(aRequestForTimesheetSpecificDay).should.be.eventually.deepEqual({
-      speech: 'Mmmm sembra che tu non abia lavorato, hai dimenticato di aggiornare il timesheet?',
-      displayText: 'Mmmm sembra che tu non abia lavorato, hai dimenticato di aggiornare il timesheet?',
+      speech: 'Mmmm sembra che tu non abbia lavorato, hai dimenticato di aggiornare il timesheet?',
+      displayText: 'Mmmm sembra che tu non abbia lavorato, hai dimenticato di aggiornare il timesheet?',
       source: 'mister-t-webhook'
     })
   })

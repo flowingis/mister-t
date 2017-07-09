@@ -21,7 +21,7 @@ module.exports = function({getUser, getWorkEntries}) {
     let speech = ''
 
     if (workEntries.length === 0) {
-      speech = 'Mmmm sembra che tu non abia lavorato, hai dimenticato di aggiornare il timesheet?'
+      speech = 'Mmmm sembra che tu non abbia lavorato, hai dimenticato di aggiornare il timesheet?'
     } else {
       speech = `Vedo che hai lavorato:\n${stringifyLogs(workEntries)}`
     }

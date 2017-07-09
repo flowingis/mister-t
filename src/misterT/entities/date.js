@@ -16,5 +16,9 @@ function range (date) {
     }
   }
 
+  if(isNaN(Date.parse(date)) === false){
+    return range({date})
+  }
+
   throw "Unable to parse the date"
 }

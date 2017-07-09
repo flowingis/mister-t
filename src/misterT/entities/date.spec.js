@@ -14,6 +14,11 @@ describe('date entitiy', () => {
       from: '2017-06-09',
       to: '2017-06-09'
     })
+
+    dateRange('2017-06-09').should.deepEqual({
+      from: '2017-06-09',
+      to: '2017-06-09'
+    })
   })
 
   it('should return a range from a date period', () => {

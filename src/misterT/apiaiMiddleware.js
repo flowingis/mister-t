@@ -2,8 +2,11 @@
 
 const apiai = require('apiai')
 const uuid = require('node-uuid');
+const _ = require('lodash')
 
 module.exports = function(config) {
+  let sessions = {}
+
   if(!config.apiAiToken) {
     throw new Error('No api.ai client access token provided')
   }
@@ -15,8 +18,8 @@ module.exports = function(config) {
     config.skip_bot = true;
   }
 
-  if (!config.sessions) {
-    config.sessions = {};
+  if (config.sessions) {
+    sessions = _.cloneDeep(config.sessions)
   }
 
   const apiaiBot = apiai(config.apiAiToken)
@@ -40,13 +43,16 @@ module.exports = function(config) {
     }
 
     const channel = message.channel;
-    if (!(channel in config.sessions)) {
-      config.sessions[channel] = uuid.v1();
+    if (!(channel in sessions)) {
+      sessions[channel] = {
+        sessionId: uuid.v1(),
+        contexts: []
+      };
     }
 
-    console.log('SESSION_ID', config.sessions[channel])
     const request = apiaiBot.textRequest(message.text, {
-      sessionId: config.sessions[channel]
+      sessionId: _.get(sessions, `${channel}.sessionId`),
+      contexts: _.get(sessions, `${channel}.contexts`)
     });
 
     request.on('response', function(response) {
@@ -54,6 +60,8 @@ module.exports = function(config) {
       message.entities = response.result.parameters;
       message.fulfillment = response.result.fulfillment;
       message.confidence = response.result.score;
+      message.contexts = response.result.contexts;
+      _.set(sessions, `${channel}.contexts`, _.get(response, 'result.contexts'))
       message.nlpResponse = response;
       next();
     })

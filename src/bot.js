@@ -29,6 +29,9 @@ controller.hears('.*', 'direct_message', function (bot, message) {
   const replyTo = misterT.replyTo(message.nlpResponse.result.action)
   replyTo(message.nlpResponse)
     .then(response => {
+      if(message.fulfillment.speech){
+        bot.reply(message, message.fulfillment.speech)
+      }
       bot.reply(message, response.displayText)
     })
     .catch((e) => {

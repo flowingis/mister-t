@@ -7,31 +7,37 @@ const skills = require('./skills')
 let sessions = {}
 
 module.exports = function (data, config) {
+
+  if (!config.apiAiToken) {
+    throw new Error('No api.ai client access token provided')
+  }
+
+  if (!config.minimum_confidence) {
+    config.minimum_confidence = 0.5;
+  }
+
+  if (!config.skip_bot) {
+    config.skip_bot = true;
+  }
+
+  if (config.sessions) {
+    sessions = _.cloneDeep(config.sessions)
+  }
+
   return {
-    replyTo: (action) => skills(action)(data),
+    replyTo: async (bot, message) => {
+      const processedMessage = await process(config, bot, message)
+      const response = await skills(processedMessage.nlpResponse.result.action)(data)(processedMessage.nlpResponse)
+
+      console.log(processedMessage, response)
+      return {response, processedMessage}
+    },
     warnAboutMissingTimesheet: require('./skills/warnAboutMissingTimesheet')(data),
-    process
   }
 }
 
 function process (config, bot, message) {
   return new Promise((resolve, reject) => {
-    if (!config.apiAiToken) {
-      throw new Error('No api.ai client access token provided')
-    }
-
-    if (!config.minimum_confidence) {
-      config.minimum_confidence = 0.5;
-    }
-
-    if (!config.skip_bot) {
-      config.skip_bot = true;
-    }
-
-    if (config.sessions) {
-      sessions = _.cloneDeep(config.sessions)
-    }
-
     const apiaiBot = apiai(config.apiAiToken)
 
     if (message.type !== "message") {
@@ -60,13 +66,8 @@ function process (config, bot, message) {
     });
 
     request.on('response', function (response) {
-      message.intent = response.result.metadata.intentName;
-      message.entities = response.result.parameters;
-      message.fulfillment = response.result.fulfillment;
-      message.confidence = response.result.score;
-      message.contexts = response.result.contexts;
+      message.nlpResponse = _.cloneDeep(response);
       _.set(sessions, `${channel}.contexts`, _.get(response, 'result.contexts'))
-      message.nlpResponse = response;
 
       resolve(message)
     })

@@ -4,7 +4,7 @@ const cron = require('node-cron')
 const _ = require('lodash')
 const slack = require('./slack')(true)
 const controller = slack.controller()
-const misterT = require('./misterT')(require('./data'))
+const misterT = require('./misterT')(require('./data'), require('./config'))
 
 slack.spawnBot(controller).startRTM(function (err, bot, payload) {
 
@@ -25,14 +25,13 @@ slack.spawnBot(controller).startRTM(function (err, bot, payload) {
 
 controller.hears('.*', 'direct_message', async function (bot, message) {
   try{
-    const processedMessage = await misterT.process(require('./config'), bot, message)
-    const response = await misterT
-      .replyTo(processedMessage.nlpResponse.result.action)(processedMessage.nlpResponse)
+    const {response, processedMessage} = await misterT.replyTo(bot, message)
 
-    if(processedMessage.fulfillment.speech){
-      bot.reply(processedMessage, processedMessage.fulfillment.speech)
+    if(processedMessage.nlpResponse.result.fulfillment.speech){
+      bot.reply(processedMessage, processedMessage.nlpResponse.result.fulfillment.speech)
     }
     bot.reply(processedMessage, response.displayText)
+
   }catch (e) {
     bot.reply(message, 'Mi dispiace, non ho capito')
     console.error(e)

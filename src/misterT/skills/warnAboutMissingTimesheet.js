@@ -26,6 +26,6 @@ module.exports = ({ getChatUsers, getWorkEntries }) => {
       }())
     })
 
-    return await _.filter(Promise.all(workEntries))
+    return _.filter(await Promise.all(workEntries))
   }
 }

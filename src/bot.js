@@ -31,7 +31,10 @@ controller.hears('.*', 'direct_message', async function (bot, message) {
     if(processedMessage.nlpResponse.result.fulfillment.speech){
       bot.reply(processedMessage, processedMessage.nlpResponse.result.fulfillment.speech)
     }
-    bot.reply(processedMessage, response.displayText)
+
+    if(response) {
+      bot.reply(processedMessage, response.displayText)
+    }
 
   }catch (e) {
     bot.reply(message, 'Mi dispiace, non ho capito')

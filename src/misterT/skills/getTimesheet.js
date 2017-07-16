@@ -6,6 +6,11 @@ const logger = require('../../logger')()
 
 module.exports = function({getUser, getWorkEntries}) {
   return async function getTimesheet(req) {
+
+    if(req.result.actionIncomplete) {
+      return
+    }
+
     const date = req.result.parameters.date
     let range
     try {

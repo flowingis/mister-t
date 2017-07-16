@@ -8,6 +8,11 @@ const noEntries = (user, from, to) => []
 const aUser = () => '@ftassi'
 
 describe('getTimesheet', () => {
+  it('should skip incomplete actions', () => {
+    const skill = getTimesheet({getUser: aUser, getWorkEntries: noEntries})
+    const anIncompleteRequest = {result: {actionIncomplete: true}}
+    skill(anIncompleteRequest).should.be.eventually.undefined()
+  })
   it('should apologize for missing date range', () =>{
     const skill = getTimesheet({getUser: aUser, getWorkEntries: noEntries})
 

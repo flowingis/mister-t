@@ -20,5 +20,13 @@ function range (date) {
     return range({date})
   }
 
-  throw "Unable to parse the date"
+  throw new InvalidDateEntity();
 }
+
+function InvalidDateEntity(message) {
+  this.name = 'InvalidDateEntity';
+  this.message = message || 'Unable to parse the date';
+  this.stack = (new Error()).stack;
+}
+InvalidDateEntity.prototype = Object.create(Error.prototype);
+InvalidDateEntity.prototype.constructor = InvalidDateEntity;

@@ -1,5 +1,7 @@
 'use strict';
 
+const logger = require('../../logger')()
+
 const NO_RESPONSE = {
   speech: '',
   displayText: '',
@@ -11,6 +13,7 @@ module.exports = function(action) {
   }
 
   if(!actions[action]) {
+    logger.debug(action, 'No skill found')
     return () => async () => NO_RESPONSE
   }
 

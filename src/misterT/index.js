@@ -3,6 +3,7 @@ const apiai = require('apiai')
 const uuid = require('node-uuid');
 const _ = require('lodash')
 const skills = require('./skills')
+const logger = require('../logger')()
 
 let sessions = {}
 
@@ -26,8 +27,11 @@ module.exports = function (data, config) {
 
   return {
     replyTo: async (bot, message) => {
+      logger.debug(message, 'Received message')
       const processedMessage = await process(config, bot, message)
+      logger.debug(processedMessage, 'Natural language parsed')
       const response = await skills(processedMessage.nlpResponse.result.action)(data)(processedMessage.nlpResponse)
+      logger.debug(response, 'Response elaborated')
       return {response, processedMessage}
     },
     warnAboutMissingTimesheet: require('./skills/warnAboutMissingTimesheet')(data),

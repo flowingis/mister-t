@@ -2,6 +2,7 @@
 const _ = require('lodash')
 const moment = require('moment')
 const dateRange = require('../entities/date').range
+const logger = require('../../logger')()
 
 module.exports = function({getUser, getWorkEntries}) {
   return async function getTimesheet(req) {
@@ -10,6 +11,9 @@ module.exports = function({getUser, getWorkEntries}) {
     try {
       range = dateRange(date)
     } catch (e) {
+      logger.error(e)
+      logger.debug(date, 'Parsed date')
+
       return {
         speech: 'Mi spiace ma non ho capito di che giorno stai parlando',
         displayText: 'Mi spiace ma non ho capito di che giorno stai parlando',

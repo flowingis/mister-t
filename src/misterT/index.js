@@ -28,8 +28,6 @@ module.exports = function (data, config) {
     replyTo: async (bot, message) => {
       const processedMessage = await process(config, bot, message)
       const response = await skills(processedMessage.nlpResponse.result.action)(data)(processedMessage.nlpResponse)
-
-      console.log(processedMessage, response)
       return {response, processedMessage}
     },
     warnAboutMissingTimesheet: require('./skills/warnAboutMissingTimesheet')(data),

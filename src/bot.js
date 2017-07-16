@@ -5,6 +5,7 @@ const _ = require('lodash')
 const slack = require('./slack')(true)
 const controller = slack.controller()
 const misterT = require('./misterT')(require('./data'), require('./config'))
+const logger = require('./logger')()
 
 slack.spawnBot(controller).startRTM(function (err, bot, payload) {
 
@@ -17,7 +18,7 @@ slack.spawnBot(controller).startRTM(function (err, bot, payload) {
           })
         }
       } catch (e) {
-        console.error(e)
+        logger.error(e)
       }
     })
   }
@@ -34,6 +35,6 @@ controller.hears('.*', 'direct_message', async function (bot, message) {
 
   }catch (e) {
     bot.reply(message, 'Mi dispiace, non ho capito')
-    console.error(e)
+    logger.error(e)
   }
 });

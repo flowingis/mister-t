@@ -4,7 +4,7 @@ const config = require('../config')
 const ideatos = require('../ideatos')
 const request = require('request');
 const _ = require('lodash');
-
+const logger = require('../logger')()
 module.exports = function (user, from, to) {
   const redmineUserId = ideatos.bySlackName(user).redmineId
   return workEntries(redmineUserId, from, to)
@@ -16,6 +16,7 @@ function workEntries (user, from, to) {
     request(url, function (error, response, body) {
 
       if (error) {
+        logger.error(error, 'Redmine error')
         reject(error)
       }
 

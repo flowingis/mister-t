@@ -13,7 +13,9 @@ Configuration
 Mister T needs to know something about you: put a `.env` file in the root with your configuration params:
 
 ```
+DEBUG=
 REDMINE_API_KEY=
 REDMINE_URL=
 SLACK_BOT_TOKEN=
+APIAI_CLIENT_ACCESS_TOKEN=
 ```

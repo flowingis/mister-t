@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "start": "nodemon src/bot.js",
     "test": "tap $(find src -name '*.spec.js')",
     "watch": "nodemon -q -x 'npm test'"
   },

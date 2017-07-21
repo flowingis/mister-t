@@ -19,3 +19,12 @@ REDMINE_URL=
 SLACK_BOT_TOKEN=
 APIAI_CLIENT_ACCESS_TOKEN=
 ```
+
+Development
+-----------
+
+Install required vendors using `yarn`.
+
+Launch the test suite with `yarn test`.
+
+To activate the bot launch `yarn start`.

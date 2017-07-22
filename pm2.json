@@ -6,7 +6,8 @@
       "script": "src/bot.js",
       "watch": true,
       "ignore_watch": [
-        "node_modules"
+        "node_modules",
+        "var"
       ]
     }
   ]

@@ -19,7 +19,7 @@ module.exports = ({ getChatUsers, getWorkEntries }) => {
 
         if (hours < 8) {
           return {
-            text: `Ieri ha segnato solo ${hours} ore\n, non è che ti sei dimenticato di qualcosa?`,
+            text: `Ieri ha segnato solo ${hours} ore, non è che ti sei dimenticato di qualcosa?\n Puoi <https://report.ideato.it/|aggiornare il timesheet>`,
             channel: slackId
           }
         }

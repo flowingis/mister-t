@@ -8,6 +8,7 @@
     "test-watch": "nodemon -x 'npm test'"
   },
   "dependencies": {
+    "apiai": "^4.0.3",
     "botkit": "^0.6.9",
     "lodash": "^4.17.4",
     "moment": "^2.20.1"
@@ -19,7 +20,7 @@
     "standard": "^10.0.3",
     "tap": "^11.1.0"
   },
-  "standard":{
+  "standard": {
     "globals": [
       "describe",
       "it"

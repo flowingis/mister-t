@@ -1,0 +1,16 @@
+version: "3"
+services:
+  bot:
+    build: .
+    volumes:
+      - app-sync:/home/node/app:nocopy
+      - nodemodules:/home/node/app/node_modules
+    command: ./node_modules/.bin/nodemon bot.js
+    environment:
+      - DEBUG=true
+      - NODE_ENV=dev
+
+volumes:
+  nodemodules:
+  app-sync:
+    external: true

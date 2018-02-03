@@ -3,6 +3,10 @@
   "description": "Timesheet management slack bot",
   "author": "Francesco Tassi <ftassi@ideato.it>",
   "version": "2.0.0",
+  "scripts": {
+    "test": "tap $(find . -path ./node_modules -prune -o -name '*.spec.js' -print)",
+    "test-watch": "nodemon -x 'npm test'"
+  },
   "dependencies": {
     "botkit": "^0.6.9",
     "lodash": "^4.17.4",
@@ -14,5 +18,11 @@
     "should": "^13.2.1",
     "standard": "^10.0.3",
     "tap": "^11.1.0"
+  },
+  "standard":{
+    "globals": [
+      "describe",
+      "it"
+    ]
   }
 }

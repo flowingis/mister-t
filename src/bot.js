@@ -2,7 +2,7 @@
 
 const config = require('./config/config')
 const Botkit = require('botkit')
-const misterT = require('./misterT')(require('./data'), require('./config/config'))
+const misterT = require('./mister-t')(require('./data'), require('./config/config'))
 const logger = require('./logger')()
 
 const controller = Botkit.slackbot()

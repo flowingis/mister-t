@@ -1,8 +1,8 @@
 "use strict"
 
-const config = require('./config')
+const config = require('./config/config')
 const Botkit = require('botkit')
-const misterT = require('./misterT')(require('./data'), require('./config'))
+const misterT = require('./misterT')(require('./data'), require('./config/config'))
 const logger = require('./logger')()
 
 const controller = Botkit.slackbot()

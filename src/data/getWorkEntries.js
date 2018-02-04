@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('../config')
+const config = require('../config/config')
 const ideatos = require('../ideatos')
 const request = require('request');
 const _ = require('lodash');

@@ -11,7 +11,9 @@
     "apiai": "^4.0.3",
     "botkit": "^0.6.9",
     "lodash": "^4.17.4",
-    "moment": "^2.20.1"
+    "moment": "^2.20.1",
+    "node-uuid": "^1.4.8",
+    "pino": "^4.10.3"
   },
   "devDependencies": {
     "dotenv": "^5.0.0",

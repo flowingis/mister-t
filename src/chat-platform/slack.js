@@ -1,18 +1,11 @@
 'use strict';
 
 const Botkit = require('botkit');
-const config = require('../config/config')
 
-module.exports = (debug) => {
-  const controller = () => {
-    return Botkit.slackbot({debug});
-  }
-
-  const spawnBot = controller => {
-    return controller.spawn({token: config.slackToken})
-  }
-
-  const retrieveUsername = (user, cb) => {
+module.exports = ({debug, slackApiToken}) => {
+  const controller = () => Botkit.slackbot({debug})
+  const spawnBot = controller => controller.spawn({token: slackApiToken})
+  const username = (user, cb) => {
     const bot = spawnBot(controller(debug))
     bot.api.users.info({user}, (error, response) => {
       if(error) {
@@ -26,6 +19,6 @@ module.exports = (debug) => {
   return {
     controller,
     spawnBot,
-    retrieveUsername
+    username
   }
 }

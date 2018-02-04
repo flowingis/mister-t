@@ -1,7 +1,7 @@
 'use strict';
 
 const Botkit = require('botkit');
-const config = require('./config/config')
+const config = require('../config/config')
 
 module.exports = (debug) => {
   const controller = () => {

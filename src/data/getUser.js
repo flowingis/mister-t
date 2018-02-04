@@ -1,6 +1,6 @@
 'use strict';
 
-const slack = require('../slack')(true)
+const slack = require('../chat-platform/slack')(true)
 
 module.exports = function getUser(request) {
   return new Promise((resolve, reject) => {

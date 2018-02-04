@@ -2,9 +2,9 @@
 
 const Botkit = require('botkit');
 
-module.exports = ({debug, slackApiToken}) => {
+module.exports = ({debug}) => {
   const controller = () => Botkit.slackbot({debug})
-  const spawnBot = controller => controller.spawn({token: slackApiToken})
+  const spawnBot = (controller, token) => controller.spawn({token})
   const username = (user, cb) => {
     const bot = spawnBot(controller(debug))
     bot.api.users.info({user}, (error, response) => {

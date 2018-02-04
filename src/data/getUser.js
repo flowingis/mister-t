@@ -1,7 +1,7 @@
 'use strict';
 
 const config = require('../config/config')
-const slack = require('../chat-platform/slack')({debug: true, slackApiToken: config.slackApiToken})
+const slack = require('../chat-platform/slack')({debug: true})
 
 module.exports = function getUser(request) {
   return new Promise((resolve, reject) => {

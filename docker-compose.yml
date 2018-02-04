@@ -8,7 +8,7 @@ services:
       - app-sync:/home/node/app:nocopy
       - var-sync:/home/node/var:nocopy
       - nodemodules:/home/node/app/node_modules
-    command: ./node_modules/.bin/nodemon --inspect=0.0.0.0:9229 bot.js
+    command: ./node_modules/.bin/nodemon --inspect=0.0.0.0:9229 slackBot.js
     environment:
       - LOG_FILE=/home/node/var/log/bot.log
       - DEBUG=true

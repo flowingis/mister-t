@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   range
@@ -16,17 +16,17 @@ function range (date) {
     }
   }
 
-  if(isNaN(Date.parse(date)) === false){
+  if (isNaN(Date.parse(date)) === false) {
     return range({date})
   }
 
-  throw new InvalidDateEntity();
+  throw new InvalidDateEntity()
 }
 
-function InvalidDateEntity(message) {
-  this.name = 'InvalidDateEntity';
-  this.message = message || 'Unable to parse the date';
-  this.stack = (new Error()).stack;
+function InvalidDateEntity (message) {
+  this.name = 'InvalidDateEntity'
+  this.message = message || 'Unable to parse the date'
+  this.stack = (new Error()).stack
 }
-InvalidDateEntity.prototype = Object.create(Error.prototype);
-InvalidDateEntity.prototype.constructor = InvalidDateEntity;
+InvalidDateEntity.prototype = Object.create(Error.prototype)
+InvalidDateEntity.prototype.constructor = InvalidDateEntity

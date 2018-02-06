@@ -1,27 +1,26 @@
-'use strict';
+'use strict'
 
-require('tap').mochaGlobals();
-const should = require('should')
+require('tap').mochaGlobals()
 const assert = require('assert')
 const timeEntry = require('./timeEntry')
 const moment = require('moment')
 
 const aTimeEntry = {
-  "date": "2017-06-30",
-  "duration": {
-    "amount": 1,
-    "unit": "giorno"
+  'date': '2017-06-30',
+  'duration': {
+    'amount': 1,
+    'unit': 'giorno'
   },
-  "activity.original": "attività di sviluppo,",
-  "duration.object": {},
-  "activity.object": {},
-  "activity": "attività di sviluppo",
-  "projectName.original": "wally",
-  "date.original": "oggi",
-  "projectName": "Wally",
-  "duration.original": "1 giorno",
-  "date.object": {},
-  "projectName.object": {}
+  'activity.original': 'attività di sviluppo,',
+  'duration.object': {},
+  'activity.object': {},
+  'activity': 'attività di sviluppo',
+  'projectName.original': 'wally',
+  'date.original': 'oggi',
+  'projectName': 'Wally',
+  'duration.original': '1 giorno',
+  'date.object': {},
+  'projectName.object': {}
 }
 describe('time entry', () => {
   it('should parse project name', () => {
@@ -61,5 +60,4 @@ describe('time entry', () => {
       )
     })
   })
-
 })

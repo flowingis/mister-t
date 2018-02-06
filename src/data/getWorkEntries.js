@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 const config = require('../config/config')
 const ideatos = require('../ideatos')
-const request = require('request');
-const _ = require('lodash');
+const request = require('request')
+const _ = require('lodash')
 const logger = require('../logger')()
 module.exports = function (user, from, to) {
   const redmineUserId = ideatos.bySlackName(user).redmineId
@@ -12,9 +12,8 @@ module.exports = function (user, from, to) {
 
 function workEntries (user, from, to) {
   return new Promise((resolve, reject) => {
-    const url = `${config.redmineUrl}/time_entries.json?key=${config.redmineApiKey}&user_id=${user}&from=${from}&to=${to}&limit=100`;
+    const url = `${config.redmineUrl}/time_entries.json?key=${config.redmineApiKey}&user_id=${user}&from=${from}&to=${to}&limit=100`
     request(url, function (error, response, body) {
-
       if (error) {
         logger.error(error, 'Redmine error')
         reject(error)
@@ -27,8 +26,10 @@ function workEntries (user, from, to) {
 
       let logs = []
       timeEntries.forEach(entry => {
-
         retrieveIssue(_.get(entry, 'issue.id'), (error, issue) => {
+          if (error) {
+            throw error
+          }
           logs.push({
             date: entry.spent_on,
             project: _.get(entry, 'project.name'),
@@ -44,12 +45,12 @@ function workEntries (user, from, to) {
           }
         })
       })
-    });
+    })
   })
 }
 
 function retrieveIssue (issueId, done) {
-  const url = `${config.redmineUrl}/issues/${issueId}.json?key=${config.redmineApiKey}`;
+  const url = `${config.redmineUrl}/issues/${issueId}.json?key=${config.redmineApiKey}`
 
   request(url, function (error, response, body) {
     if (error) {

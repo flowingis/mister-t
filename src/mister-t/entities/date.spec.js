@@ -1,7 +1,6 @@
-'use strict';
+'use strict'
 
-require('tap').mochaGlobals();
-const should = require('should')
+require('tap').mochaGlobals()
 const dateRange = require('./date').range
 
 describe('date entitiy', () => {
@@ -23,7 +22,7 @@ describe('date entitiy', () => {
 
   it('should return a range from a date period', () => {
     const apiaiParsedDate = {
-      "date-period":"2017-06-01/2017-06-30"
+      'date-period': '2017-06-01/2017-06-30'
     }
 
     dateRange(apiaiParsedDate).should.deepEqual({

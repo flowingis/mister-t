@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const Botkit = require('botkit');
+const Botkit = require('botkit')
 
 module.exports = ({debug}) => {
   const controller = () => Botkit.slackbot({debug})
@@ -8,11 +8,11 @@ module.exports = ({debug}) => {
   const username = (user, cb) => {
     const bot = spawnBot(controller(debug))
     bot.api.users.info({user}, (error, response) => {
-      if(error) {
+      if (error) {
         cb(error)
       }
       bot.destroy()
-      cb(false, `@${response.user.name}`)
+      cb(null, `@${response.user.name}`)
     })
   }
 

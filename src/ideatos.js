@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const _ = require('lodash')
 
@@ -26,19 +26,19 @@ const ideatos = {
   '182': '@nandoluc',
   '180': '@ramonavesprini',
   '177': '@filippogianessi'
-};
+}
 
 module.exports.bySlackName = (slackName) => {
   for (const redmineId in ideatos) {
     if (ideatos.hasOwnProperty(redmineId)) {
-        if(ideatos[redmineId] === slackName) {
-          return {redmineId: redmineId, slackId: slackName};
-        }
+      if (ideatos[redmineId] === slackName) {
+        return {redmineId: redmineId, slackId: slackName}
+      }
     }
   }
-};
+}
 
-module.exports.allSlackIds = (function allSlackIds(ideatos) {
+module.exports.allSlackIds = (function allSlackIds (ideatos) {
   return _.map(ideatos, (slackId) => {
     return slackId
   })

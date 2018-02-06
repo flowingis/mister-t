@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   getChatUsers: () => Promise.resolve(require('../ideatos').allSlackIds),

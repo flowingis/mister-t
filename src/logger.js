@@ -6,7 +6,7 @@ const stream = fs.createWriteStream(config.logFile, {flag: 'a'})
 
 module.exports = function () {
   return pino({
-      level: config.logLevel
-    },
+    level: config.logLevel
+  },
     stream)
 }

@@ -1,13 +1,12 @@
-'use strict';
+'use strict'
 const _ = require('lodash')
 const moment = require('moment')
 const dateRange = require('../entities/date').range
 const logger = require('../../logger')()
 
-module.exports = function({getUser, getWorkEntries}) {
-  return async function getTimesheet(req) {
-
-    if(req.result.actionIncomplete) {
+module.exports = function ({getUser, getWorkEntries}) {
+  return async function getTimesheet (req) {
+    if (req.result.actionIncomplete) {
       return
     }
 
@@ -43,7 +42,7 @@ module.exports = function({getUser, getWorkEntries}) {
   }
 }
 
-function humanReadableDate(day) {
+function humanReadableDate (day) {
   return moment(day).locale('it').calendar(null, {
     lastDay: '[Ieri]',
     sameDay: '[Oggi]',

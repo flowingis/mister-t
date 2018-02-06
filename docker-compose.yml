@@ -13,6 +13,19 @@ services:
       - LOG_FILE=/home/node/var/log/bot.log
       - DEBUG=true
       - NODE_ENV=development
+  webhook:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - app-sync:/home/node/app:nocopy
+      - var-sync:/home/node/var:nocopy
+      - nodemodules:/home/node/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - WEBHOOK_LISTEN_PORT=8080
+      - WEBHOOK_LISTEN_HOST=0.0.0.0
+    command: ./node_modules/.bin/nodemon --inspect=0.0.0.0:9229 webhook.js
 
 volumes:
   nodemodules:

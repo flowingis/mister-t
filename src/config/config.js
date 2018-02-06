@@ -18,4 +18,5 @@ module.exports = {
   logLevel: process.env.LOG_LEVEL,
   redmineApiKey: process.env.REDMINE_API_KEY,
   redmineUrl: process.env.REDMINE_URL,
+  webHook: require('./webhook')
 }

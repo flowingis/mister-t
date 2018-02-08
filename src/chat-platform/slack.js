@@ -2,17 +2,21 @@
 
 const Botkit = require('botkit')
 
-module.exports = ({debug}) => {
+module.exports = ({debug, token}) => {
   const controller = () => Botkit.slackbot({debug})
   const spawnBot = (controller, token) => controller.spawn({token})
   const username = (user, cb) => {
-    const bot = spawnBot(controller(debug))
+    if (!user) {
+      return cb(new Error('undefined user'))
+    }
+
+    const bot = spawnBot(controller(debug), token)
     bot.api.users.info({user}, (error, response) => {
       if (error) {
-        cb(error)
+        return cb(error)
       }
       bot.destroy()
-      cb(null, `@${response.user.name}`)
+      return cb(null, `@${response.user.name}`)
     })
   }
 

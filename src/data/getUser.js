@@ -1,6 +1,7 @@
 'use strict'
 
-const slack = require('../chat-platform/slack')({debug: true})
+const config = require('../config/config')
+const slack = require('../chat-platform/slack')({debug: true, token: config.slackApiToken})
 
 module.exports = function getUser (request) {
   return new Promise((resolve, reject) => {
@@ -18,7 +19,7 @@ module.exports = function getUser (request) {
       return
     }
 
-    slack.username(slackRequest.data.user, (error, user) => {
+    slack.username(slackRequest.data.event.user, (error, user) => {
       if (error) {
         reject(new Error('Unable to retrieve user'))
         return

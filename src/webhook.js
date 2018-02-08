@@ -1,12 +1,14 @@
 'use strict'
-
-const http = require('http')
+const express = require('express')
+const bodyParser = require('body-parser')
 const config = require('./config/config')
+const misterT = require('./mister-t')(require('./data'))
+const app = express()
 
-http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'application/json'})
-  res.end(JSON.stringify({
-    'speech': 'Presto ti darò i dati del timesheet',
-    'displayText': 'Presto ti darò i dati del timesheet'
-  }))
-}).listen(config.webHook.listenPort)
+app.use(bodyParser.json())
+
+app.post('/', async (req, res) => {
+  res.json(await misterT.replyTo(req.body))
+})
+
+app.listen(config.webHook.listenPort)

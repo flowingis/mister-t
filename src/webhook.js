@@ -2,7 +2,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('./config/config')
-const misterT = require('./mister-t')(require('./data'))
+const misterT = require('./mister-t')
 const app = express()
 
 app.use(bodyParser.json())

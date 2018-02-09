@@ -1,6 +1,7 @@
 'use strict'
 
 require('tap').mochaGlobals()
+require('should')
 const getTimesheet = require('./getTimesheet')
 
 const noEntries = (user, from, to) => []
@@ -8,12 +9,12 @@ const aUser = () => '@ftassi'
 
 describe('getTimesheet', () => {
   it('should skip incomplete actions', () => {
-    const skill = getTimesheet({getUser: aUser, getWorkEntries: noEntries})
+    const skill = getTimesheet({sender: aUser, workEntries: noEntries})
     const anIncompleteRequest = {result: {actionIncomplete: true}}
     skill(anIncompleteRequest).should.be.eventually.undefined()
   })
   it('should apologize for missing date range', () => {
-    const skill = getTimesheet({getUser: aUser, getWorkEntries: noEntries})
+    const skill = getTimesheet({sender: aUser, workEntries: noEntries})
 
     const aRequestWithInvalidDate = {result: {parameters: {date: 'invalid-date'}}}
     skill(aRequestWithInvalidDate).should.be.eventually.deepEqual({
@@ -24,7 +25,7 @@ describe('getTimesheet', () => {
   })
 
   it('should tell users no logs exists for a specific period', () => {
-    const skill = getTimesheet({getUser: aUser, getWorkEntries: noEntries})
+    const skill = getTimesheet({sender: aUser, workEntries: noEntries})
 
     const aRequestForTimesheetSpecificDay = {result: {parameters: {date: {date: '2017-01-01'}}}}
     skill(aRequestForTimesheetSpecificDay).should.be.eventually.deepEqual({
@@ -41,7 +42,7 @@ describe('getTimesheet', () => {
       {project: 'Bar Project', issue: {name: 'A different activity'}, hours: 2, date: '2017-01-01'}
       ]
     }
-    const skill = getTimesheet({getUser: aUser, getWorkEntries: someEntries})
+    const skill = getTimesheet({sender: aUser, workEntries: someEntries})
 
     const aRequestForTimesheetSpecificDay = {result: {parameters: {date: {date: '2017-01-01'}}}}
 

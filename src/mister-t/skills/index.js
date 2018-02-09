@@ -1,6 +1,7 @@
 'use strict'
 
 const logger = require('../../logger')()
+const model = require('./model')
 
 const NO_RESPONSE = {
   speech: '',
@@ -17,5 +18,5 @@ module.exports = function (action) {
     return () => async () => NO_RESPONSE
   }
 
-  return actions[action]
+  return actions[action](model)
 }

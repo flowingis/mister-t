@@ -1,10 +1,10 @@
 'use strict'
 const _ = require('lodash')
 const moment = require('moment')
-const dateRange = require('../entities/date').range
+const dateRange = require('./entities/date').range
 const logger = require('../../logger')()
 
-module.exports = function ({getUser, getWorkEntries}) {
+module.exports = function ({sender: user, workEntries}) {
   return async function getTimesheet (req) {
     if (req.result.actionIncomplete) {
       return
@@ -25,19 +25,23 @@ module.exports = function ({getUser, getWorkEntries}) {
       }
     }
 
-    const workEntries = await getWorkEntries(await getUser(req), range.from, range.to)
-    let speech = ''
+    try {
+      const userWorkEntries = await workEntries(await user(req), range.from, range.to)
+      let speech = ''
 
-    if (workEntries.length === 0) {
-      speech = 'Mmmm sembra che tu non abbia lavorato, forse devi <https://report.ideato.it/|aggiornare il timesheet>?'
-    } else {
-      speech = `Vedo che hai lavorato:\n${stringifyLogs(workEntries)}`
-    }
+      if (userWorkEntries.length === 0) {
+        speech = 'Mmmm sembra che tu non abbia lavorato, forse devi <https://report.ideato.it/|aggiornare il timesheet>?'
+      } else {
+        speech = `Vedo che hai lavorato:\n${stringifyLogs(userWorkEntries)}`
+      }
 
-    return {
-      speech: speech,
-      displayText: speech,
-      source: 'mister-t-webhook'
+      return {
+        speech: speech,
+        displayText: speech,
+        source: 'mister-t-webhook'
+      }
+    } catch (e) {
+      throw e
     }
   }
 }

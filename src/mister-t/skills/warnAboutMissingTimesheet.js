@@ -4,10 +4,10 @@ const moment = require('moment')
 const _ = require('lodash')
 const lastBusinessDay = require('../../businessDays').last
 
-module.exports = ({ getChatUsers, getWorkEntries }) => {
+module.exports = ({ everyoneOnSlack, getWorkEntries }) => {
   return async function warnAboutMissingTimesheet () {
     const day = lastBusinessDay(moment()).format('YYYY-MM-DD')
-    const users = await getChatUsers()
+    const users = await everyoneOnSlack()
 
     const workEntries = users.map(slackId => {
       return (async function () {

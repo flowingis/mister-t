@@ -1,6 +1,7 @@
 'use strict'
 
 require('tap').mochaGlobals()
+require('should')
 const assert = require('assert')
 const timeEntry = require('./timeEntry')
 const moment = require('moment')

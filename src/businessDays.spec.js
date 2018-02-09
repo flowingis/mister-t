@@ -1,6 +1,7 @@
 'use strict'
 
 require('tap').mochaGlobals()
+require('should')
 const moment = require('moment')
 const last = require('./businessDays').last
 

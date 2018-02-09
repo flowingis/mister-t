@@ -1,7 +1,7 @@
 'use strict'
 
 const config = require('./config/config')
-const misterT = require('./mister-t')(require('./data'))
+const misterT = require('./mister-t')(require('./mister-t/skills/model'))
 const logger = require('./logger')()
 const slack = require('./chat-platform/slack')({debug: config.debug, token: config.slackApiToken})
 

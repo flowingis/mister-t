@@ -10,5 +10,6 @@
       service: bot
       type: push
       image_name: ftass/mister-t
+      image_tag: "{{ .Branch }}-{{ .CommitID }}"
       registry: https://index.docker.io/v1/
       encrypted_dockercfg_path: dockercfg.encrypted

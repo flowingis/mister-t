@@ -1,0 +1,13 @@
+bot:
+  build:
+    dockerfile: Dockerfile
+    image: mister-t
+  environment:
+    LOG_FILE: /home/node/bot.log
+    DEBUG: false
+    LOG_LEVEL: debug
+    SLACK_API_TOKEN: foo
+    REDMINE_API_KEY: foo
+    REDMINE_URL: foo
+    WEBHOOK_LISTEN_PORT: 8080
+    WEBHOOK_LISTEN_HOST: 0.0.0.0

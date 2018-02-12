@@ -1,0 +1,14 @@
+- type: parallel
+  steps:
+    - name: tests
+      service: bot
+      command: npm test
+
+- type: serial
+  steps:
+    - name: dockerhub_push
+      service: bot
+      type: push
+      image_name: ftass/mister-t
+      registry: https://index.docker.io/v1/
+      encrypted_dockercfg_path: dockercfg.encrypted

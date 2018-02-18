@@ -18,4 +18,3 @@ RUN npm install --production
 COPY ./src/ ./
 
 CMD node webhook.js
-HEALTHCHECK CMD curl --fail http://localhost/ || exit 1

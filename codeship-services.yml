@@ -18,3 +18,18 @@ bot-prod:
     dockerfile: Dockerfile/Dockerfile.prod
     image: mister-t
   encrypted_env_file: env.encrypted
+deployed:
+  build:
+    image: registry.heroku.com/ftassi/mister-t
+    context: .
+    dockerfile: Dockerfile/Dockerfile.prod
+  encrypted_env_file: heroku-deployment.env.encrypted
+dockercfg-generator:
+  image: codeship/heroku-dockercfg-generator
+  add_docker: true
+  encrypted_env_file: heroku-deployment.env.encrypted
+herokudeployment:
+  image: codeship/heroku-deployment
+  encrypted_env_file: heroku-deployment.env.encrypted
+  volumes:
+    - ./:/deploy

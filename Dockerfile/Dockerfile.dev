@@ -5,6 +5,7 @@ RUN mkdir /home/node/app
 WORKDIR /home/node/app
 
 COPY ./src/package*.json ./
+ENV NODE_ENV=development
 RUN npm install
 
 COPY ./src/ ./

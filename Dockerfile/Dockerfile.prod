@@ -1,0 +1,21 @@
+FROM node:8.9.4 as production
+USER node
+
+RUN mkdir /home/node/app
+WORKDIR /home/node/app
+
+ENV NODE_ENV=production
+ENV LOG_FILE=/home/node/var/log/bot.log
+ENV DEBUG=false
+ENV WEBHOOK_LISTEN_PORT=80
+ENV WEBHOOK_LISTEN_HOST=0.0.0.0
+
+EXPOSE 80
+
+COPY ./src/package*.json ./
+RUN npm install --production
+
+COPY ./src/ ./
+
+CMD node webhook.js
+HEALTHCHECK CMD curl --fail http://localhost/ || exit 1

@@ -1,13 +1,13 @@
 - type: parallel
   steps:
     - name: tests
-      service: bot
+      service: bot-dev
       command: npm test
 
 - type: serial
   steps:
     - name: dockerhub_push
-      service: bot
+      service: bot-prod
       type: push
       image_name: ftass/mister-t
       image_tag: "{{ .Branch }}-{{ .CommitID }}"

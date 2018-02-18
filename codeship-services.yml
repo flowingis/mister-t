@@ -20,7 +20,7 @@ bot-prod:
   encrypted_env_file: env.encrypted
 deployed:
   build:
-    image: registry.heroku.com/ftassi/mister-t
+    image: registry.heroku.com/mister-t
     context: .
     dockerfile: Dockerfile/Dockerfile.prod
   encrypted_env_file: heroku-deployment.env.encrypted

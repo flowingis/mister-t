@@ -16,7 +16,7 @@
     - name: Push
       service: deployed
       type: push
-      image_name: registry.heroku.com/ftassi/mister-t
+      image_name: registry.heroku.com/mister-t
       image_tag: "{{ .Branch }}-{{ .CommitID }}"
       registry: registry.heroku.com
       dockercfg_service: dockercfg-generator

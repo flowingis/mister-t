@@ -17,3 +17,4 @@ bot-prod:
     context: .
     dockerfile: Dockerfile/Dockerfile.prod
     image: mister-t
+  encrypted_env_file: env.encrypted

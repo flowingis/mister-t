@@ -15,10 +15,10 @@
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "node-uuid": "^1.4.8",
-    "pino": "^4.10.3"
+    "pino": "^4.10.3",
+    "dotenv": "^5.0.0"
   },
   "devDependencies": {
-    "dotenv": "^5.0.0",
     "nodemon": "^1.14.12",
     "should": "^13.2.1",
     "standard": "^10.0.3",

@@ -3,24 +3,4 @@ services:
   bot:
     build:
       context: .
-      dockerfile: Dockerfile/Dockerfile.dev
-    ports:
-      - "9229:9229"
-      - "8080:8080"
-    volumes:
-      - app-sync:/home/node/app:nocopy
-      - var-sync:/home/node/var:nocopy
-      - nodemodules:/home/node/app/node_modules
-    command: ./node_modules/.bin/nodemon --inspect=0.0.0.0:9229 webhook.js
-    environment:
-      - LOG_FILE=/home/node/var/log/bot.log
-      - DEBUG=true
-      - NODE_ENV=development
-      - WEBHOOK_LISTEN_PORT=8080
-      - WEBHOOK_LISTEN_HOST=0.0.0.0
-volumes:
-  nodemodules:
-  app-sync:
-    external: true
-  var-sync:
-    external: true
+      dockerfile: Dockerfile/Dockerfile.prod

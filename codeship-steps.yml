@@ -13,3 +13,6 @@
       image_tag: "{{ .Branch }}-{{ .CommitID }}"
       registry: https://index.docker.io/v1/
       encrypted_dockercfg_path: dockercfg.encrypted
+    - name: swarm-deploy
+      service: bot-prod
+      command: docker stack deploy mister-t

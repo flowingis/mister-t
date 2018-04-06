@@ -25,7 +25,8 @@ const ideatos = {
   '174': '@francesco-strazzullo',
   '182': '@nandoluc',
   '180': '@ramonavesprini',
-  '177': '@filippogianessi'
+  '177': '@filippogianessi',
+  '188': '@lorenzomassacci'
 }
 
 module.exports.bySlackName = (slackName) => {

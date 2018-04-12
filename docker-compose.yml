@@ -1,0 +1,25 @@
+version: "3"
+services:
+  bot:
+    build:
+      context: ./
+      dockerfile: Dockerfile/Dockerfile.dev
+    ports:
+      - "9229:9229"
+      - "8080:8080"
+    volumes:
+      - ./src:/home/node/app
+      - ./var:/home/node/var
+      - nodemodules:/home/node/app/node_modules
+    command: yarn webhook-local
+    env_file:
+      - ./env.dev
+  tunnel:
+    image: wernight/ngrok
+    links:
+      - bot
+    ports:
+      - 4040
+    command: ngrok http bot:8080
+volumes:
+  nodemodules:

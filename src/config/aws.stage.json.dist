@@ -1,0 +1,7 @@
+{
+  "SLACK_API_TOKEN": "",
+  "LOG_LEVEL": "",
+  "REDMINE_API_KEY": "",
+  "REDMINE_URL": "",
+  "DEBUG":
+}

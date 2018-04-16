@@ -1,17 +1,31 @@
 'use strict'
-const express = require('express')
-const bodyParser = require('body-parser')
-const config = require('./config/config')
+
 const misterT = require('./mister-t')
-const app = express()
+// app.post('/', async (req, res) => {
+//   res.json(await misterT.replyTo(req.body))
+// })
+//
+// app.listen(config.webHook.listenPort)
 
-app.use(bodyParser.json())
+module.exports.ping = (event, context, callback) => {
+  callback(null, {
+    statusCode: 200,
+    body: JSON.stringify({pong: true})
+  })
+}
 
-app.get('/ping', (req, res) => {
-  res.sendStatus(200)
-})
-app.post('/', async (req, res) => {
-  res.json(await misterT.replyTo(req.body))
-})
-
-app.listen(config.webHook.listenPort)
+module.exports.reply = async (event, context, callback) => {
+  try {
+    const incoming = JSON.parse(event.body)
+    callback(null, {
+      statusCode: 200,
+      body: JSON.stringify(await misterT.replyTo(incoming))
+    })
+  } catch (e) {
+    console.error(e.name + ': ' + e.message)
+    callback(null, {
+      statusCode: 500,
+      body: JSON.stringify({error: 'Unable to process request'})
+    })
+  }
+}

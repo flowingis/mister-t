@@ -1,4 +1,7 @@
 FROM node:8.10
+
+RUN npm install serverless -g --unsafe-perm
+
 USER node
 
 RUN mkdir /home/node/app

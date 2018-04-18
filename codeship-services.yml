@@ -2,4 +2,9 @@ bot-dev:
   build:
     context: .
     dockerfile: Dockerfile/Dockerfile.dev
-  encrypted_env_file: env.encrypted
+  encrypted_env_file: env.dev.encrypted
+bot-prod:
+  build:
+    context: .
+    dockerfile: Dockerfile/Dockerfile.dev
+  encrypted_env_file: env.prod.encrypted

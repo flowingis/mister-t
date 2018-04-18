@@ -3,6 +3,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: eu-west-1
+  stage: ${env:CI_BRANCH, 'dev'}
 functions:
   ping:
     handler: webhook.ping

@@ -3,6 +3,11 @@
     - name: tests
       service: bot-dev
       command: npm test
-    - name: deploy
+    - name: deploy prod
+      service: bot-prod
+      command: sls deploy
+      tag: "master"
+    - name: deploy dev
       service: bot-dev
       command: sls deploy
+      tag: "dev"

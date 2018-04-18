@@ -3,3 +3,4 @@ src/node_modules
 !agent/*
 .docker-sync
 codeship.aes
+env

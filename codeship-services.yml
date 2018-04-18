@@ -2,9 +2,4 @@ bot-dev:
   build:
     context: .
     dockerfile: Dockerfile/Dockerfile.dev
-  environment:
-    DEBUG: false
-    LOG_LEVEL: debug
-    SLACK_API_TOKEN: foo
-    REDMINE_API_KEY: foo
-    REDMINE_URL: foo
+  encrypted_env_file: env.encrypted

@@ -1,5 +1,8 @@
-- type: parallel
+- type: serial
   steps:
     - name: tests
       service: bot-dev
       command: npm test
+    - name: deploy
+      service: bot-dev
+      command: sls deploy

@@ -13,8 +13,8 @@ functions:
     events:
       - http: POST reply
     environment:
-      SLACK_API_TOKEN: ${file(./config/aws.${self:provider.stage}.json):SLACK_API_TOKEN}
-      LOG_LEVEL: ${file(./config/aws.${self:provider.stage}.json):LOG_LEVEL}
-      REDMINE_API_KEY: ${file(./config/aws.${self:provider.stage}.json):REDMINE_API_KEY}
-      REDMINE_URL: ${file(./config/aws.${self:provider.stage}.json):REDMINE_URL}
-      DEBUG: ${file(./config/aws.${self:provider.stage}.json):DEBUG}
+      SLACK_API_TOKEN: ${env:SLACK_API_TOKEN}
+      LOG_LEVEL: ${env:LOG_LEVEL}
+      REDMINE_API_KEY: ${env:REDMINE_API_KEY}
+      REDMINE_URL: ${env:REDMINE_URL}
+      DEBUG: ${env:DEBUG}

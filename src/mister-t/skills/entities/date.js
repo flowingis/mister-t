@@ -1,26 +1,33 @@
 'use strict'
 
+const moment = require('moment')
+
 module.exports = {
   range
 }
 
-function range (date) {
-  if (date.date) {
-    return { from: date.date, to: date.date }
+function range (dialogFlowDate) {
+  if (dialogFlowDate.date) {
+    const date = day(dialogFlowDate.date)
+    return { from: date, to: date }
   }
 
-  if (date[ 'date-period' ]) {
+  if (dialogFlowDate[ 'date-period' ]) {
     return {
-      from: date[ 'date-period' ].split('/')[ 0 ],
-      to: date[ 'date-period' ].split('/')[ 1 ]
+      from: day(dialogFlowDate[ 'date-period' ].startDate),
+      to: day(dialogFlowDate [ 'date-period' ].endDate)
     }
   }
 
-  if (isNaN(Date.parse(date)) === false) {
-    return range({date})
+  if (isNaN(Date.parse(dialogFlowDate)) === false) {
+    return range({date: dialogFlowDate})
   }
 
   throw new InvalidDateEntity()
+}
+
+function day (date) {
+  return moment(date).startOf('day')
 }
 
 function InvalidDateEntity (message) {

@@ -6,11 +6,12 @@ const logger = require('../../logger')()
 
 module.exports = function ({sender: user, workEntries}) {
   return async function getTimesheet (req) {
-    if (req.result.actionIncomplete) {
+    if (!req.queryResult.allRequiredParamsPresent) {
+      logger.debug('missing required params')
       return
     }
 
-    const date = req.result.parameters.date
+    const date = req.queryResult.parameters.date
     let range
     try {
       range = dateRange(date)
@@ -19,9 +20,7 @@ module.exports = function ({sender: user, workEntries}) {
       logger.debug(date, 'Parsed date')
 
       return {
-        speech: 'Mi spiace ma non ho capito di che giorno stai parlando',
-        displayText: 'Mi spiace ma non ho capito di che giorno stai parlando',
-        source: 'mister-t-webhook'
+        fulfillmentText: 'Mi spiace ma non ho capito di che giorno stai parlando'
       }
     }
 
@@ -35,12 +34,9 @@ module.exports = function ({sender: user, workEntries}) {
         speech = `Vedo che hai lavorato:\n${stringifyLogs(userWorkEntries)}`
       }
 
-      return {
-        speech: speech,
-        displayText: speech,
-        source: 'mister-t-webhook'
-      }
+      return {fulfillmentText: speech}
     } catch (e) {
+      logger.error(e.message)
       throw e
     }
   }

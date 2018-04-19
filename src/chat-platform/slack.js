@@ -23,7 +23,7 @@ module.exports = ({debug, token}) => {
 
   const sender = (slackRequest) => {
     return new Promise((resolve, reject) => {
-      if (!slackRequest) {
+      if (!slackRequest.source) {
         return resolve(APIAI_CONSOLE_FAKE_USER)
       }
 
@@ -33,7 +33,7 @@ module.exports = ({debug, token}) => {
         return reject(new Error(`Invalid source: expected slack got ${source}`))
       }
 
-      username(slackRequest.data.event.user, (error, user) => {
+      username(slackRequest.payload.event.user, (error, user) => {
         if (error) {
           reject(new Error('Unable to retrieve user'))
           return

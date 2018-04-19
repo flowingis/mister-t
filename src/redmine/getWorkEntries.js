@@ -6,7 +6,7 @@ const logger = require('../logger')()
 
 module.exports = (config) => (user, from, to) => {
   return new Promise((resolve, reject) => {
-    const url = `${config.redmineUrl}/time_entries.json?key=${config.redmineApiKey}&user_id=${user}&from=${from}&to=${to}&limit=100`
+    const url = `${config.redmineUrl}/time_entries.json?key=${config.redmineApiKey}&user_id=${user}&from=${from.format('YYYY-MM-DD')}&to=${to.format('YYYY-MM-DD')}&limit=100`
     request(url, function (error, response, body) {
       if (error) {
         logger.error(error, 'Redmine error')

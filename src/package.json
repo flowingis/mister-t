@@ -4,22 +4,18 @@
   "author": "Francesco Tassi <ftassi@ideato.it>",
   "version": "2.0.0",
   "scripts": {
-    "test": "mocha --require ./test/mocha.env.js $(find . -name '*.spec.js' -not -path './node_modules/*')",
-    "test-watch": "nodemon -x 'npm test'"
+    "test": "mocha --require ./test/mocha.env.js $(find . -name '*.spec.js' -not -path './node_modules/*')"
   },
   "dependencies": {
     "apiai": "^4.0.3",
     "body-parser": "^1.18.2",
     "botkit": "^0.6.9",
-    "express": "^4.16.2",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
-    "node-uuid": "^1.4.8",
-    "pino": "^4.10.3"
+    "node-uuid": "^1.4.8"
   },
   "devDependencies": {
     "mocha": "^5.1.1",
-    "nodemon": "^1.14.12",
     "should": "^13.2.1",
     "standard": "^10.0.3"
   },

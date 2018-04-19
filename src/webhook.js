@@ -1,11 +1,6 @@
 'use strict'
 
 const misterT = require('./mister-t')
-// app.post('/', async (req, res) => {
-//   res.json(await misterT.replyTo(req.body))
-// })
-//
-// app.listen(config.webHook.listenPort)
 
 module.exports.ping = (event, context, callback) => {
   callback(null, {

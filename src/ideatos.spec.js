@@ -1,7 +1,7 @@
 'use strict'
 
 require('should')
-require('tap').mochaGlobals()
+
 const ideatos = require('./ideatos')
 
 describe('bySlackName', () => {

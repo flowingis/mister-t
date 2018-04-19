@@ -1,7 +1,7 @@
 'use strict'
 
-require('tap').mochaGlobals()
 require('should')
+
 const dateRange = require('./date').range
 
 describe('date entitiy', () => {

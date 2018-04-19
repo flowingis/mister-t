@@ -1,7 +1,7 @@
 'use strict'
 
-require('tap').mochaGlobals()
 require('should')
+
 const getTimesheet = require('./getTimesheet')
 
 const noEntries = (user, from, to) => []

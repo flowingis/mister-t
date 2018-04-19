@@ -4,7 +4,7 @@
   "author": "Francesco Tassi <ftassi@ideato.it>",
   "version": "2.0.0",
   "scripts": {
-    "test": "tap $(find . -path ./node_modules -prune -o -name '*.spec.js' -print)",
+    "test": "mocha --require ./test/mocha.env.js $(find . -name '*.spec.js' -not -path './node_modules/*')",
     "test-watch": "nodemon -x 'npm test'"
   },
   "dependencies": {
@@ -18,10 +18,10 @@
     "pino": "^4.10.3"
   },
   "devDependencies": {
+    "mocha": "^5.1.1",
     "nodemon": "^1.14.12",
     "should": "^13.2.1",
-    "standard": "^10.0.3",
-    "tap": "^11.1.0"
+    "standard": "^10.0.3"
   },
   "standard": {
     "globals": [

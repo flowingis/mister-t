@@ -3,6 +3,8 @@
 Mister T
 ========
 
+![Mister T will help you compile your Timesheet][mister-t]
+
 [mister-t]: https://bestofthe80s.files.wordpress.com/2011/11/mr-t-real_2.jpg
 
 Every morning he will check your timesheet...and you don't want to make him angry.

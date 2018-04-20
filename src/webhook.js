@@ -14,6 +14,9 @@ module.exports.reply = async (event, context, callback) => {
     const incoming = JSON.parse(event.body)
     callback(null, {
       statusCode: 200,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8'
+      },
       body: JSON.stringify(await misterT.replyTo(incoming))
     })
   } catch (e) {

@@ -1,9 +1,15 @@
-service: nodejsapp
+service: mister-t
 provider:
   name: aws
   runtime: nodejs8.10
   region: eu-west-1
   stage: ${env:CI_BRANCH, 'dev'}
+  environment:
+    SLACK_API_TOKEN: ${env:SLACK_API_TOKEN}
+    LOG_LEVEL: ${env:LOG_LEVEL}
+    REDMINE_API_KEY: ${env:REDMINE_API_KEY}
+    REDMINE_URL: ${env:REDMINE_URL}
+    DEBUG: ${env:DEBUG}
 functions:
   ping:
     handler: webhook.ping
@@ -13,9 +19,3 @@ functions:
     handler: webhook.reply
     events:
       - http: POST reply
-    environment:
-      SLACK_API_TOKEN: ${env:SLACK_API_TOKEN}
-      LOG_LEVEL: ${env:LOG_LEVEL}
-      REDMINE_API_KEY: ${env:REDMINE_API_KEY}
-      REDMINE_URL: ${env:REDMINE_URL}
-      DEBUG: ${env:DEBUG}

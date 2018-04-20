@@ -8,9 +8,9 @@
     "webhook-local": "nodemon ./webhook-local.js"
   },
   "dependencies": {
-    "apiai": "^4.0.3",
     "body-parser": "^1.18.2",
     "botkit": "^0.6.9",
+    "dialogflow": "0.3.0",
     "express": "^4.16.3",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
